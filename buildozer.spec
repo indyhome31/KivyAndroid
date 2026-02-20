@@ -21,11 +21,14 @@ android.permissions = INTERNET
 android.api = 33
 android.minapi = 21
 android.ndk = 25b
-android.ndk_api = 21
+android.ndk_api = 
+android.accept_sdk_license = True
 
 # Utiliser la dernière toolchain stable
 android.sdk = 28
 android.archs = arm64-v8a, armeabi-v7a
+android.sdk_version = 34
+android.ndk_version = 26
 
 # Empêche les erreurs de compilation liées à Cython
 cython.min_version = 0.29.36
