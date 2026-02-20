@@ -6,40 +6,38 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
 
-# Icône (optionnel)
+# Icon (optional)
 # icon.filename = %(source.dir)s/icon.png
 
 requirements = python3,kivy
 orientation = portrait
-
 fullscreen = 1
 
-# Permissions Android (ajoute selon ton besoin)
+# Android Permissions
 android.permissions = INTERNET
 
-# Pour éviter les erreurs de compatibilité
+# SDK and API Configuration
 android.api = 33
 android.minapi = 21
 android.ndk = 25b
-android.ndk_api = 
 android.accept_sdk_license = True
 
-# Utiliser la dernière toolchain stable
-android.sdk = 28
-android.archs = arm64-v8a, armeabi-v7a
+# SDK and Toolchain versions
 android.sdk_version = 34
 android.ndk_version = 26
+android.archs = arm64-v8a,armeabi-v7a
 
-# Empêche les erreurs de compilation liées à Cython
+# Cython version
 cython.min_version = 0.29.36
 
-# Empêche les erreurs de compilation dans GitHub Actions
+# p4a configuration
 p4a.branch = master
+p4a.source_dir = 
 
-# Empêche les erreurs de packaging
+# Android backup configuration
 android.allow_backup = True
 
-# Ajoute ton fichier main
+# Entry point
 entrypoint = main.py
 
 [buildozer]
