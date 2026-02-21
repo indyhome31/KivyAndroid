@@ -22,7 +22,8 @@ jobs:
           openjdk-17-jdk \
           autoconf automake libtool pkg-config \
           libltdl-dev libffi-dev libssl-dev \
-          m4 texinfo
+          m4 texinfo \
+          gradle
 
     - name: Setup Python environment
       run: |
@@ -40,11 +41,16 @@ jobs:
           buildozer \
           cython \
           pycparser
-        pip install kivy
+
+    - name: Setup Gradle
+      run: |
+        export PATH=$PATH:/usr/bin
+        gradle --version
 
     - name: Accept Android SDK licenses
       run: |
         mkdir -p $ANDROID_SDK_ROOT/licenses
+        yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses || true
         echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > $ANDROID_SDK_ROOT/licenses/android-sdk-license
         echo "84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_SDK_ROOT/licenses/android-sdk-preview-license
         echo "d56f5187479451eabf01fb78af6dfcb131b33910" > $ANDROID_SDK_ROOT/licenses/intel-android-extra-license
@@ -52,7 +58,7 @@ jobs:
     - name: Configure Buildozer
       run: |
         source buildenv/bin/activate
-        # Use the provided buildozer.spec, don't regenerate
+        buildozer --version
         if [ ! -f buildozer.spec ]; then
           buildozer init
         fi
@@ -65,28 +71,17 @@ jobs:
     - name: Debug - List directory structure
       if: always()
       run: |
-        echo "=== Current directory ===" 
-        pwd
-        echo ""
-        echo "=== Root directory contents ===" 
+        echo "=== Root directory ===" 
         ls -lah
         echo ""
-        echo "=== bin directory (if exists) ===" 
-        if [ -d "bin" ]; then
-          ls -lah bin/
-        else
-          echo "bin directory does not exist"
-        fi
+        echo "=== bin directory ===" 
+        ls -lah bin/ || echo "bin does not exist"
         echo ""
-        echo "=== .buildozer directory (if exists) ===" 
-        if [ -d ".buildozer" ]; then
-          find .buildozer -name "*.apk" -o -name "*.aab" 2>/dev/null | head -20
-        else
-          echo ".buildozer directory does not exist"
-        fi
+        echo "=== .buildozer directory structure ===" 
+        find .buildozer -type f -name "*.apk" 2>/dev/null | head -20
         echo ""
-        echo "=== Search for APK files anywhere ===" 
-        find . -name "*.apk" 2>/dev/null | head -20
+        echo "=== Last 100 lines of build.log ===" 
+        tail -100 build.log
 
     - name: Upload build logs
       if: always()
