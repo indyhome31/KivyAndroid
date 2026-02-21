@@ -17,7 +17,7 @@ android.permissions = INTERNET
 android.api = 33
 android.minapi = 21
 android.ndk = 23c
-android.accept_sdk_license = 
+android.accept_sdk_license = True
 
 
 # SDK and Toolchain versions
