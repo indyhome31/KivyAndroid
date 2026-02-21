@@ -16,16 +16,20 @@ android.permissions = INTERNET
 # SDK and API Configuration
 android.api = 33
 android.minapi = 21
-android.ndk = 25b
-android.accept_sdk_license = True
+android.ndk = 23c
+android.accept_sdk_license = 
+
 
 # SDK and Toolchain versions
 android.sdk_version = 34
-android.ndk_version = 26
+android.ndk_version = 23c
 android.archs = arm64-v8a
 
 # Cython version
 cython.min_version = 0.29.36
+
+# Android bootstrap
+android.bootstrap = sdl2
 
 # p4a configuration
 p4a.branch = master
