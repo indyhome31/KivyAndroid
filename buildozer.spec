@@ -16,21 +16,22 @@ android.permissions = INTERNET
 # SDK and API Configuration
 android.api = 33
 android.minapi = 21
-android.ndk = 23c
+android.ndk = 25b
 android.accept_sdk_license = True
 
 
 # SDK and Toolchain versions
 android.sdk_version = 34
-android.ndk_version = 23c
+android.ndk_version = 25b
 android.archs = arm64-v8a
+
+# ✅ CRITICAL: Skip building pyjnius from source
+android.skip_update = False
+p4a.fork = kivy
+p4a.branch = develop
 
 # Cython version
 cython.min_version = 0.29.36
-
-# p4a configuration
-p4a.branch = master
-
 
 # ✅ ADD THIS: Specify SDL2-based pyjnius to avoid build issues
 android.entrypoint = org.kivy.android.PythonActivity
