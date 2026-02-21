@@ -28,9 +28,6 @@ android.archs = arm64-v8a
 # Cython version
 cython.min_version = 0.29.36
 
-# Android bootstrap
-android.bootstrap = sdl2
-
 # p4a configuration
 p4a.branch = master
 p4a.source_dir = 
