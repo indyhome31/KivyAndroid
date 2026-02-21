@@ -22,8 +22,6 @@ android.accept_sdk_license = True
 # SDK and Toolchain versions
 android.sdk_version = 34
 android.ndk_version = 26
-
-# ✅ CHANGED: Only build for 64-bit (more reliable, avoids armeabi-v7a issues)
 android.archs = arm64-v8a
 
 # Cython version
@@ -32,6 +30,11 @@ cython.min_version = 0.29.36
 # p4a configuration
 p4a.branch = master
 p4a.source_dir = 
+
+# ✅ ADD THIS: Specify SDL2-based pyjnius to avoid build issues
+android.entrypoint = org.kivy.android.PythonActivity
+android.bootstrap = sdl2
+android.permissions = INTERNET
 
 # Android backup configuration
 android.allow_backup = True
