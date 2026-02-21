@@ -62,8 +62,34 @@ jobs:
         source buildenv/bin/activate
         buildozer android debug 2>&1 | tee build.log
 
-    - name: Upload build logs on failure
-      if: failure()
+    - name: Debug - List directory structure
+      if: always()
+      run: |
+        echo "=== Current directory ===" 
+        pwd
+        echo ""
+        echo "=== Root directory contents ===" 
+        ls -lah
+        echo ""
+        echo "=== bin directory (if exists) ===" 
+        if [ -d "bin" ]; then
+          ls -lah bin/
+        else
+          echo "bin directory does not exist"
+        fi
+        echo ""
+        echo "=== .buildozer directory (if exists) ===" 
+        if [ -d ".buildozer" ]; then
+          find .buildozer -name "*.apk" -o -name "*.aab" 2>/dev/null | head -20
+        else
+          echo ".buildozer directory does not exist"
+        fi
+        echo ""
+        echo "=== Search for APK files anywhere ===" 
+        find . -name "*.apk" 2>/dev/null | head -20
+
+    - name: Upload build logs
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: build-logs
@@ -74,4 +100,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: kivy-apk
-        path: bin/*.apk
+        path: |
+          bin/*.apk
+          .buildozer/android/platform/build-*/dist/*.apk
+        if-no-files-found: warn
