@@ -1,5 +1,7 @@
 name: Build Kivy APK
 
+name: Build Kivy APK
+
 on:
   push:
     branches: [ "main" ]
@@ -11,28 +13,37 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install system dependencies
       run: |
-        sudo apt update
-        sudo apt install -y \
+        sudo apt-get update
+        sudo apt-get install -y \
           python3 python3-pip python3-setuptools python3-venv \
           git zip unzip libncurses6 build-essential \
-          openjdk-17-jdk
+          openjdk-17-jdk \
+          autoconf automake libtool pkg-config \
+          libltdl-dev libffi-dev libssl-dev \
+          m4 texinfo
+
+    - name: Setup Python environment
+      run: |
+        python3 -m venv buildenv
+        source buildenv/bin/activate
+        pip install --upgrade pip setuptools wheel
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Install Buildozer
+    - name: Install Buildozer and dependencies
       run: |
-        pip install --upgrade pip
-        pip install buildozer cython
+        source buildenv/bin/activate
+        pip install --upgrade \
+          buildozer \
+          cython \
+          pycparser
+        pip install kivy
 
-    - name: Create buildozer.spec
-      run: |
-        buildozer init || true
-        
     - name: Accept Android SDK licenses
       run: |
         mkdir -p $ANDROID_SDK_ROOT/licenses
@@ -40,11 +51,28 @@ jobs:
         echo "84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_SDK_ROOT/licenses/android-sdk-preview-license
         echo "d56f5187479451eabf01fb78af6dfcb131b33910" > $ANDROID_SDK_ROOT/licenses/intel-android-extra-license
 
+    - name: Configure Buildozer
+      run: |
+        source buildenv/bin/activate
+        # Use the provided buildozer.spec, don't regenerate
+        if [ ! -f buildozer.spec ]; then
+          buildozer init
+        fi
+
     - name: Build APK
       run: |
-        buildozer android debug
+        source buildenv/bin/activate
+        buildozer android debug 2>&1 | tee build.log
+
+    - name: Upload build logs on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-logs
+        path: build.log
 
     - name: Upload APK artifact
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: kivy-apk
