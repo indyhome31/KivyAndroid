@@ -30,7 +30,7 @@ cython.min_version = 0.29.36
 
 # p4a configuration
 p4a.branch = master
-p4a.source_dir = 
+
 
 # ✅ ADD THIS: Specify SDL2-based pyjnius to avoid build issues
 android.entrypoint = org.kivy.android.PythonActivity
