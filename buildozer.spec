@@ -6,9 +6,6 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
 
-# Icon (optional)
-# icon.filename = %(source.dir)s/icon.png
-
 requirements = python3,kivy
 orientation = portrait
 fullscreen = 1
@@ -25,7 +22,9 @@ android.accept_sdk_license = True
 # SDK and Toolchain versions
 android.sdk_version = 34
 android.ndk_version = 26
-android.archs = arm64-v8a,armeabi-v7a
+
+# ✅ CHANGED: Only build for 64-bit (more reliable, avoids armeabi-v7a issues)
+android.archs = arm64-v8a
 
 # Cython version
 cython.min_version = 0.29.36
