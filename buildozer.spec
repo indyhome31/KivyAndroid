@@ -34,7 +34,6 @@ p4a.source_dir =
 # ✅ ADD THIS: Specify SDL2-based pyjnius to avoid build issues
 android.entrypoint = org.kivy.android.PythonActivity
 android.bootstrap = sdl2
-android.permissions = INTERNET
 
 # Android backup configuration
 android.allow_backup = True
