@@ -39,9 +39,10 @@ jobs:
     - name: Install Buildozer and dependencies
       run: |
         source buildenv/bin/activate
-        pip install --upgrade \
-          buildozer \
-          cython \
+        pip install --upgrade pip
+        pip install buildozer=1.5.0
+        pip install python-for-android==2024.01.21
+        pip install cython \
           pycparser
 
     - name: Setup Gradle
