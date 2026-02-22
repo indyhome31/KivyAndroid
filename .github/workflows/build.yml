@@ -1,6 +1,5 @@
 name: Build Kivy APK
 
-
 on:
   push:
     branches: [ "main" ]
@@ -18,37 +17,26 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y \
-          python3 python3-pip python3-setuptools python3-venv \
+          python3.11 python3.11-venv python3-pip python3-setuptools \
           git zip unzip libncurses6 build-essential \
           openjdk-17-jdk \
           autoconf automake libtool pkg-config \
           libltdl-dev libffi-dev libssl-dev \
           m4 texinfo \
-          gradle
+          gradle wget curl
 
     - name: Setup Python environment
       run: |
-        python3 -m venv buildenv
-        source buildenv/bin/activate
-        pip install --upgrade pip setuptools wheel
+        python3.11 -m venv buildenv
+        ./buildenv/bin/pip install --upgrade pip setuptools wheel
+
+    - name: Install Buildozer and Python-for-Android
+      run: |
+        ./buildenv/bin/pip install buildozer==1.5.0
+        ./buildenv/bin/pip install python-for-android==2024.01.21
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-
-
-    - name: Install Buildozer and dependencies
-      run: |
-        source buildenv/bin/activate
-        pip install --upgrade pip
-        pip install buildozer==1.5.0
-        pip install python-for-android==2024.01.21
-        pip install cython \
-          pycparser
-
-    - name: Setup Gradle
-      run: |
-        export PATH=$PATH:/usr/bin
-        gradle --version
 
     - name: Accept Android SDK licenses
       run: |
@@ -58,38 +46,34 @@ jobs:
         echo "84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_SDK_ROOT/licenses/android-sdk-preview-license
         echo "d56f5187479451eabf01fb78af6dfcb131b33910" > $ANDROID_SDK_ROOT/licenses/intel-android-extra-license
 
-    - name: Configure Buildozer
+    - name: Initialize Buildozer spec
       run: |
-        source buildenv/bin/activate
-        buildozer --version
+        ./buildenv/bin/buildozer --version
         if [ ! -f buildozer.spec ]; then
-          buildozer init
+          ./buildenv/bin/buildozer init
         fi
-          
+
     - name: Clean previous builds
       run: |
-        rm -rf .buildozer/
-        rm -rf ~/.buildozer
-        rm -rf bin/    
+        rm -rf .buildozer/ ~/.buildozer bin/
 
     - name: Build APK
       run: |
-        source buildenv/bin/activate
-        buildozer android debug 2>&1 | tee build.log
+        ./buildenv/bin/buildozer android debug 2>&1 | tee build.log
 
     - name: Debug - List directory structure
       if: always()
       run: |
-        echo "=== Root directory ===" 
+        echo "=== Root directory ==="
         ls -lah
         echo ""
-        echo "=== bin directory ===" 
+        echo "=== bin directory ==="
         ls -lah bin/ || echo "bin does not exist"
         echo ""
-        echo "=== .buildozer directory structure ===" 
+        echo "=== .buildozer directory structure ==="
         find .buildozer -type f -name "*.apk" 2>/dev/null | head -20
         echo ""
-        echo "=== Last 100 lines of build.log ===" 
+        echo "=== Last 100 lines of build.log ==="
         tail -100 build.log
 
     - name: Upload build logs
