@@ -29,7 +29,7 @@ android.archs = arm64-v8a
 # ✅ CRITICAL: Skip building pyjnius from source
 android.skip_update = False
 p4a.fork = kivy
-p4a.branch = develop
+p4a.branch = master
 
 # Cython version
 cython.min_version = 0.29.36
