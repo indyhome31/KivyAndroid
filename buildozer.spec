@@ -6,7 +6,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
 
-requirements = python3,kivy
+requirements = python3==3.11.6,kivy==2.2.1
 orientation = portrait
 fullscreen = 1
 
@@ -14,9 +14,10 @@ fullscreen = 1
 android.permissions = INTERNET
 
 # SDK and API Configuration
-android.api = 33
-android.minapi = 21
+android.api = 34
+android.minapi = 23
 android.ndk = 25b
+android.enable_androidx = True
 android.accept_sdk_license = True
 
 
