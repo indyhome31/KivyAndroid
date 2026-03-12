@@ -38,9 +38,6 @@ runs:
 
     - name: Prepare virtual environment
       run: |
-  #      python3 -m venv venv
-  #      source venv/bin/activate
-  #      echo "Using Python==$(python --version)"
         python3 --version
       shell: bash
       
