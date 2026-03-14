@@ -29,12 +29,12 @@ jobs:
           
     - name: Install additional dependencies
       run: |
-      sudo apt install -y \
-        autoconf \
-        automake \
-        libtool \
-        pkg-config \
-        m4   
+        sudo apt install -y \
+          autoconf \
+          automake \
+          libtool \
+          pkg-config \
+          m4   
 
     - name: Install Python dependencies
       run: |
