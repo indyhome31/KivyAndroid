@@ -30,10 +30,7 @@ jobs:
     - name: Install additional dependencies
       run: |
         sudo apt install -y \
-          autoconf \
           automake \
-          libtool \
-          pkg-config \
           m4   
 
     - name: Install Python dependencies
@@ -53,6 +50,11 @@ jobs:
     - name: Initialize Buildozer
       run: |
         buildozer init || true
+        
+    - name : clean buildozer
+      run: |
+        buildozer android clean
+        rm -rf .buildozer
 
     - name: Build APK
       run: |
