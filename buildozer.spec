@@ -37,7 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, android, kivy==2.3.0, requests, urllib3, chardet, idna, certifi, materialyoucolor, exceptiongroup, asyncgui, asynckivy, pillow, cachetools, python-dateutil, scramp, asn1crypto, cryptography, bcrypt, https://github.com/kivymd/KivyMD/archive/master.zip
+requirements = python3==3.10, android, kivy==2.3.0, requests, materialyoucolor, exceptiongroup, asyncgui, asynckivy, pillow, cachetools, python-dateutil
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
