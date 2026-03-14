@@ -54,7 +54,6 @@ jobs:
     - name : clean buildozer
       run: |
         buildozer android clean
-        rm -rf .buildozer
 
     - name: Build APK
       run: |
