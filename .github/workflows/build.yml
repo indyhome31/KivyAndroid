@@ -50,10 +50,6 @@ jobs:
     - name: Initialize Buildozer
       run: |
         buildozer init || true
-        
-    - name : clean buildozer
-      run: |
-        buildozer android clean
 
     - name: Build APK
       run: |
