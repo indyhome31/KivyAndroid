@@ -38,7 +38,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.10.20, kivy==2.2.1, requests, materialyoucolor, exceptiongroup, asyncgui, asynckivy, pillow, cachetools, python-dateutil, certifi
+requirements = python3==3.10.11, kivy==2.3.0, requests, materialyoucolor, exceptiongroup, asyncgui, asynckivy, pillow, cachetools, python-dateutil, certifi
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
