@@ -38,7 +38,8 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.10.11, kivy==2.3.0, requests, pillow, certifi
+requirements = python3==3.10.11, kivy==2.3.0
+#, requests, pillow, certifi
 #, materialyoucolor, exceptiongroup, asyncgui, asynckivy, cachetools, python-dateutil
 
 # (str) Custom source folders for requirements
