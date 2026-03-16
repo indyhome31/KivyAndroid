@@ -101,7 +101,8 @@ fullscreen = 0
 android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
 
 # (list) features (adds uses-feature -tags to manifest)
-#android.features = android.hardware.usb.host
+# android.features = android.hardware.usb.host
+android.features = android.hardware.opengles.aep
 
 # (int) Target Android API, should be as high as possible.
 android.api = 33
@@ -273,7 +274,7 @@ android.accept_sdk_license = True
 #android.uses_library =
 
 # (str) Android logcat filters to use
-#android.logcat_filters = *:S python:D
+android.logcat_filters = *:S python:D kivy:D
 
 # (bool) Android logcat only display log for activity's pid
 #android.logcat_pid_only = False
