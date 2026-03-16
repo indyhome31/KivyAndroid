@@ -314,6 +314,15 @@ android.release_artifact = apk
 # (str) The format used to package the app for debug mode (apk or aar).
 android.debug_artifact = apk
 
+# added on Chatgpt proposal :
+# Force TextureView au lieu de SurfaceView
+android.surface_view = 0
+
+# Assurez-vous que l’accélération matérielle est activée
+android.manifest_application_attributes = android:hardwareAccelerated="true"
+
+# end of proposals
+
 #
 # Python for android (p4a) specific
 #
