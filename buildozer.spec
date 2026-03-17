@@ -317,7 +317,7 @@ android.debug_artifact = apk
 
 # added on Chatgpt proposal :
 # Force TextureView au lieu de SurfaceView
-android.surface_view = 1
+android.surface_view = 0
 
 # pour bug android
 android.manifest_application_attributes = android:hardwareAccelerated="false"
