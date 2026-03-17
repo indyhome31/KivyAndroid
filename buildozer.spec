@@ -4,10 +4,10 @@
 
 [app]
 
-# (str) Title of your application
+# (str) Title of your application : it appears when clicking long on icon
 title = My first APP
 
-# (str) Package name
+# (str) Package name : prefix of application filename
 package.name = MyfirstApp
 
 # (str) Package domain (needed for android/ios packaging)
@@ -26,7 +26,7 @@ source.include_patterns = assets/*,src/*,android/*
 source.exclude_exts = spec,keystore
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = tests, bin, venv, .buildozer, .git, .github, .vscode, docs, kivy_venv, linux, linux-appimage, linux-flatpak, mac, windows
+source.exclude_dirs = tmp, .idea, .venv, doc, tst, tests, bin, venv, .buildozer, .git, .github, .vscode, docs, kivy_venv, linux, linux-appimage, linux-flatpak, mac, windows
 
 # (list) List of exclusions using pattern matching
 # Do not prefix with './'
@@ -47,11 +47,11 @@ requirements = python3==3.11.14,kivy==2.3.0,requests
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../kivy
 
-# (str) Presplash of the application
-presplash.filename = %(source.dir)s/presplash.png
+# (str) Presplash of the application : displayed while loading by android, 512x512 pixels
+presplash.filename = %(source.dir)s/images/presplash.png
 
-# (str) Icon of the application
-icon.filename = %(source.dir)s/icon.png
+# (str) Icon of the application : 512x512 , corners will be rounded
+icon.filename = %(source.dir)s/images/icon.png
 
 # (list) Supported orientations
 # Valid options are: landscape, portrait, portrait-reverse or landscape-reverse
@@ -65,7 +65,7 @@ orientation = portrait
 #
 
 #
-author = © Viachaslau Lyskouski
+author = © Sylvain Besson
 
 # change the major version of python used by the app
 osx.python_version = 3.11
