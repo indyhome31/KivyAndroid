@@ -1,36 +1,39 @@
+## Run android build
+# buildozer init
+# buildozer android debug
+
 [app]
 
 # (str) Title of your application
 title = My first APP
 
 # (str) Package name
-package.name = MyFirstApp
+package.name = MyfirstApp
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.test
 
 # (str) Source code where the main.py live
 source.dir = .
-source.main = main.py
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,jpeg,kv,ttf,txt,json,atlas
+source.include_exts = py,png,jpg,kv,atlas,json,txt,ttf,wav,mp3,csv
 
 # (list) List of inclusions using pattern matching
-#source.include_patterns = assets/*,images/*.png
+source.include_patterns = assets/*,src/*,android/*
 
 # (list) Source files to exclude (let empty to not exclude anything)
-#source.exclude_exts = spec
+source.exclude_exts = spec,keystore
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = tests, bin, venv, doc
+source.exclude_dirs = tests, bin, venv, .buildozer, .git, .github, .vscode, docs, kivy_venv, linux, linux-appimage, linux-flatpak, mac, windows
 
 # (list) List of exclusions using pattern matching
 # Do not prefix with './'
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.1
+version = 0.0.1
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -38,13 +41,11 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.10.11, kivy==2.2.1
-#, requests, pillow, certifi
-#, materialyoucolor, exceptiongroup, asyncgui, asynckivy, cachetools, python-dateutil
+requirements = python3==3.11.14,kivy==2.3.0,requests,pydub,numpy
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
-# requirements.source.kivy = ../../kivy
+# requirements.source.kivy = ../kivy
 
 # (str) Presplash of the application
 presplash.filename = %(source.dir)s/presplash.png
@@ -54,7 +55,7 @@ icon.filename = %(source.dir)s/icon.png
 
 # (list) Supported orientations
 # Valid options are: landscape, portrait, portrait-reverse or landscape-reverse
-orientation = portrait
+orientation = porttait
 
 # (list) List of service to declare
 #services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
@@ -64,10 +65,10 @@ orientation = portrait
 #
 
 #
-# author = © Copyright Info
+author = © Viachaslau Lyskouski
 
 # change the major version of python used by the app
-osx.python_version = 3
+osx.python_version = 3.11
 
 # Kivy version to use
 osx.kivy_version = 2.3.0
@@ -76,8 +77,11 @@ osx.kivy_version = 2.3.0
 # Android specific
 #
 
+# (str) Android Python version to use (avoid compatibility issues)
+android.python_version = 3.11
+
 # (bool) Indicate if the application should be fullscreen or not
-fullscreen = 0
+fullscreen = 1
 
 # (string) Presplash background color (for android toolchain)
 # Supported formats are: #RRGGBB #AARRGGBB or one of the following names:
@@ -98,17 +102,16 @@ fullscreen = 0
 
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
+android.permissions = android.permission.INTERNET, android.permission.RECORD_AUDIO, (name=android.permission.WRITE_EXTERNAL_STORAGE;maxSdkVersion=18)
 
 # (list) features (adds uses-feature -tags to manifest)
-# android.features = android.hardware.usb.host
-# android.features = android.hardware.opengles.aep
+#android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-android.api = 33
+android.api = 35
 
 # (int) Minimum API your APK / AAB will support.
-android.minapi = 23
+android.minapi = 24
 
 # (int) Android SDK version to use
 #android.sdk = 20
@@ -117,7 +120,7 @@ android.minapi = 23
 android.ndk = 25b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
-#android.ndk_api = 21
+android.ndk_api = 24
 
 # (bool) Use --private data storage (True) or --dir public storage (False)
 #android.private_storage = True
@@ -199,7 +202,7 @@ android.accept_sdk_license = True
 # android.add_resources = my_icons/all-inclusive.png:drawable/all_inclusive.png
 # 2) A directory, here  'legal_icons' must contain resources of one kind
 # android.add_resources = legal_icons:drawable
-# 3) A directory, here 'legal_resources' must contain one or more directories, 
+# 3) A directory, here 'legal_resources' must contain one or more directories,
 # each of a resource kind:  drawable, xml, etc...
 # android.add_resources = legal_resources
 #android.add_resources =
@@ -210,7 +213,7 @@ android.accept_sdk_license = True
 # (bool) Enable AndroidX support. Enable when 'android.gradle_dependencies'
 # contains an 'androidx' package, or any package from Kotlin source.
 # android.enable_androidx requires android.api >= 28
-#android.enable_androidx = True
+android.enable_androidx = True
 
 # (list) add java compile options
 # this can for example be necessary when importing certain java libraries using the 'android.gradle_dependencies' option
@@ -218,14 +221,14 @@ android.accept_sdk_license = True
 # android.add_compile_options = "sourceCompatibility = 1.8", "targetCompatibility = 1.8"
 
 # (list) Gradle repositories to add {can be necessary for some android.gradle_dependencies}
-# please enclose in double quotes 
+# please enclose in double quotes
 # e.g. android.gradle_repositories = "maven { url 'https://kotlin.bintray.com/ktor' }"
 #android.add_gradle_repositories =
 
-# (list) packaging options to add 
+# (list) packaging options to add
 # see https://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.PackagingOptions.html
 # can be necessary to solve conflicts in gradle_dependencies
-# please enclose in double quotes 
+# please enclose in double quotes
 # e.g. android.add_packaging_options = "exclude 'META-INF/common.kotlin_module'", "exclude 'META-INF/*.kotlin_module'"
 #android.add_packaging_options =
 
@@ -274,7 +277,7 @@ android.accept_sdk_license = True
 #android.uses_library =
 
 # (str) Android logcat filters to use
-android.logcat_filters = *:S python:D kivy:D
+#android.logcat_filters = *:S python:D
 
 # (bool) Android logcat only display log for activity's pid
 #android.logcat_pid_only = False
@@ -283,16 +286,15 @@ android.logcat_filters = *:S python:D kivy:D
 #android.adb_args = -H host.docker.internal
 
 # (bool) Copy library instead of making a libpymodules.so
-#android.copy_libs = 1
+android.copy_libs = 1
 
 # (list) The Android archs to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
 # In past, was `android.arch` as we weren't supporting builds for multiple archs at the same time.
 android.archs = arm64-v8a
-# a priori not longer useful with new smartphones: , armeabi-v7a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
-# android.numeric_version = 1
+android.numeric_version = 1
 
 # (bool) enables Android auto backup feature (Android API >=23)
 android.allow_backup = True
@@ -310,19 +312,10 @@ android.allow_backup = True
 # android.no-byte-compile-python = False
 
 # (str) The format used to package the app for release mode (aab or apk or aar).
-android.release_artifact = apk
+android.release_artifact = aab
 
 # (str) The format used to package the app for debug mode (apk or aar).
 android.debug_artifact = apk
-
-# added on Chatgpt proposal :
-# Force TextureView au lieu de SurfaceView
-android.surface_view = 0
-
-# pour bug android
-android.manifest_application_attributes = android:hardwareAccelerated="false"
-
-# end of proposals
 
 #
 # Python for android (p4a) specific
@@ -335,22 +328,22 @@ android.manifest_application_attributes = android:hardwareAccelerated="false"
 #p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-p4a.branch = master
+p4a.branch = develop
 
 # (str) python-for-android specific commit to use, defaults to HEAD, must be within p4a.branch
-#p4a.commit = HEAD
+p4a.commit = 9720dbd5489ebf0e8490a9fb930828f4426b8a20
 
 # (str) python-for-android git clone directory (if empty, it will be automatically cloned from github)
 #p4a.source_dir =
 
 # (str) The directory in which python-for-android should look for your own build recipes (if any)
-#p4a.local_recipes =
+#p4a.local_recipes = ./android/
 
 # (str) Filename to the hook for p4a
 #p4a.hook =
 
 # (str) Bootstrap to use for android builds
-# p4a.bootstrap = sdl2
+p4a.bootstrap = sdl2
 
 # (int) port number to specify an explicit --port= p4a argument (eg for bootstrap flask)
 #p4a.port =
@@ -360,57 +353,10 @@ p4a.branch = master
 # Setting this to false will pass --ignore-setup-py, true will pass --use-setup-py
 # NOTE: this is general setuptools integration, having pyproject.toml is enough, no need to generate
 # setup.py if you're using Poetry, but you need to add "toml" to source.include_exts.
-#p4a.setup_py = false
+p4a.setup_py = false
 
 # (str) extra command line arguments to pass when invoking pythonforandroid.toolchain
-#p4a.extra_args =
-
-
-
-#
-# iOS specific
-#
-
-# (str) Path to a custom kivy-ios folder
-#ios.kivy_ios_dir = ../kivy-ios
-# Alternately, specify the URL and branch of a git checkout:
-ios.kivy_ios_url = https://github.com/kivy/kivy-ios
-ios.kivy_ios_branch = master
-
-# Another platform dependency: ios-deploy
-# Uncomment to use a custom checkout
-#ios.ios_deploy_dir = ../ios_deploy
-# Or specify URL and branch
-ios.ios_deploy_url = https://github.com/phonegap/ios-deploy
-ios.ios_deploy_branch = 1.10.0
-
-# (bool) Whether or not to sign the code
-ios.codesign.allowed = false
-
-# (str) Name of the certificate to use for signing the debug version
-# Get a list of available identities: buildozer ios list_identities
-#ios.codesign.debug = "iPhone Developer: <lastname> <firstname> (<hexstring>)"
-
-# (str) The development team to use for signing the debug version
-#ios.codesign.development_team.debug = <hexstring>
-
-# (str) Name of the certificate to use for signing the release version
-#ios.codesign.release = %(ios.codesign.debug)s
-
-# (str) The development team to use for signing the release version
-#ios.codesign.development_team.release = <hexstring>
-
-# (str) URL pointing to .ipa file to be installed
-# This option should be defined along with `display_image_url` and `full_size_image_url` options.
-#ios.manifest.app_url =
-
-# (str) URL pointing to an icon (57x57px) to be displayed during download
-# This option should be defined along with `app_url` and `full_size_image_url` options.
-#ios.manifest.display_image_url =
-
-# (str) URL pointing to a large icon (512x512px) to be used by iTunes
-# This option should be defined along with `app_url` and `display_image_url` options.
-#ios.manifest.full_size_image_url =
+p4a.extra_args = --bootstrap=sdl2 --arch=arm64-v8a
 
 
 [buildozer]
@@ -425,7 +371,7 @@ warn_on_root = 1
 # build_dir = ./.buildozer
 
 # (str) Path to build output (i.e. .apk, .aab, .ipa) storage
-# bin_dir = ./bin
+bin_dir = ./build
 
 #    -----------------------------------------------------------------------------
 #    List as sections
