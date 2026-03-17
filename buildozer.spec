@@ -38,7 +38,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.10.11, kivy==2.3.0
+requirements = python3==3.10.11, kivy==2.2.1
 #, requests, pillow, certifi
 #, materialyoucolor, exceptiongroup, asyncgui, asynckivy, cachetools, python-dateutil
 
@@ -108,13 +108,13 @@ android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
 android.api = 33
 
 # (int) Minimum API your APK / AAB will support.
-android.minapi = 24
+android.minapi = 23
 
 # (int) Android SDK version to use
 #android.sdk = 20
 
 # (str) Android NDK version to use
-android.ndk = 25b
+android.ndk = 23b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21
